@@ -23,7 +23,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             TripWiseTheme {
                 val navController = rememberNavController()
-
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavHost(
                         navController = navController,
@@ -35,6 +34,36 @@ class MainActivity : ComponentActivity() {
                         composable("signup") { SignUpScreen(navController) }
                     }
                 }
+
+                /*
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    AnimatedNavHost(
+                        navController = navController,
+                        startDestination = "onboard",
+                        modifier = Modifier.padding(innerPadding),
+                        enterTransition = {
+                            // Sayfa açılırken: sola kayar
+                            slideInHorizontally(initialOffsetX = { -it })
+                        },
+                        exitTransition = {
+                            // Sayfa kapanırken: sola çıkar
+                            slideOutHorizontally(targetOffsetX = { -it })
+                        },
+                        popEnterTransition = {
+                            // Geri dönünce: sağdan girer
+                            slideInHorizontally(initialOffsetX = { it })
+                        },
+                        popExitTransition = {
+                            // Geri dönünce: sağa çıkar
+                            slideOutHorizontally(targetOffsetX = { it })
+                        }
+                    ) {
+                        composable("onboard") { Onboard(navController) }
+                        composable("login") { LoginScreen(navController) }
+                        composable("signup") { SignUpScreen(navController) }
+                    }
+                }
+                 */
             }
         }
     }
