@@ -11,7 +11,7 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.alihan.tripwise.presentation.ui.LoginScreen
+import com.alihan.tripwise.presentation.ui.login.LoginScreen
 import com.alihan.tripwise.ui.theme.TripWiseTheme
 
 class MainActivity : ComponentActivity() {

@@ -1,105 +1,43 @@
-package com.alihan.tripwise.presentation.ui
+package com.alihan.tripwise.presentation.ui.login
 
-import android.widget.Space
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.alihan.tripwise.R
 import com.alihan.tripwise.ui.theme.Green
-import com.google.accompanist.pager.*
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
-
-@OptIn(ExperimentalPagerApi::class)
-@Composable
-fun LoginScreen(navController: NavHostController) {
-    val pagerState = rememberPagerState()
-    val isDark = isSystemInDarkTheme()
-    val boxColor = if (isDark) Color.Black else Color.White
-    val systemUiController = rememberSystemUiController()
-    val backgroundColor = boxColor
-
-
-
-    SideEffect {
-        systemUiController.setStatusBarColor(
-            color = backgroundColor,
-        )
-    }
-
-    Scaffold(
-
-        modifier = Modifier
-            .fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
-        contentWindowInsets = WindowInsets(0, 0, 0, 0),
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxSize()
-                ,
-
-        ) {
-            HorizontalPager(
-                count = 3,
-                state = pagerState,
-                modifier = Modifier.weight(1f)
-            ) { page ->
-                when (page) {
-                    0 -> PageContent(
-                        title = "Welcome to TripWise",
-                        color = boxColor,
-                        page="1",
-                        description = "Plan your trips easily and quickly"
-                    )
-
-                    1 -> PageContent(
-                        title = "Discover New Places",
-                        color = boxColor,
-                        page = "2",
-                        description = "Get personalized recommendations"
-                    )
-
-                    2 -> PageContent(
-                        title = "Let's Get Started!",
-                        description = "Tap the button below to continue",
-                        color = boxColor,
-                        page = "3",
-                        onButtonClick = { navController.navigate("home") }
-                    )
-                }
-            }
-
-            HorizontalPagerIndicator(
-                pagerState = pagerState,
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(16.dp),
-                activeColor = Color.Blue,
-                inactiveColor = Color.Gray
-            )
-        }
-    }
-}
 
 @Composable
-fun PageContent(
-    title: String,
+fun PageContent1(
     color: Color,
-    description: String,
-    page:String,
     onButtonClick: () -> Unit = {}
 ) {
 
@@ -115,12 +53,12 @@ fun PageContent(
                 .fillMaxWidth()
                 .fillMaxHeight(2f / 3f)
                 .shadow(
-                    elevation = 8.dp,
+                    elevation = 3.dp,
                     shape = RoundedCornerShape(
                         topStart = 0.dp,
                         topEnd = 0.dp,
-                        bottomStart = 80.dp,
-                        bottomEnd = 80.dp
+                        bottomStart = 120.dp,
+                        bottomEnd = 120.dp
                     ),
                 )
                 .background(
@@ -128,8 +66,8 @@ fun PageContent(
                     shape = RoundedCornerShape(
                         topStart = 0.dp,
                         topEnd = 0.dp,
-                        bottomStart = 80.dp,
-                        bottomEnd = 80.dp
+                        bottomStart = 120.dp,
+                        bottomEnd = 120.dp
                     )
                 )
                 .padding(vertical = 90.dp),
@@ -144,7 +82,7 @@ fun PageContent(
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
                     text = "TripWise",
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.headlineSmall,
                 )
                 Spacer(modifier = Modifier.height(40.dp))
                 Icon(
@@ -156,10 +94,12 @@ fun PageContent(
             }
         }
         Button(
-            onClick = {},
+            onClick = {
+                onButtonClick()
+            },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 24.dp),
+                .padding(horizontal = 50.dp),
             shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent,
@@ -170,6 +110,7 @@ fun PageContent(
             Box(modifier = Modifier.fillMaxWidth().padding(10.dp)) {
                 Text(
                     text = "Let's Go", fontSize = (15.sp),
+                    style = MaterialTheme.typography.headlineSmall,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.align(Alignment.Center)
                 )
@@ -181,6 +122,8 @@ fun PageContent(
                 )
             }
         }
+
+
 
 
     }
