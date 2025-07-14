@@ -111,6 +111,7 @@ fun PageContent(
     ) {
         Box(
             modifier = Modifier
+                .padding(horizontal = 25.dp)
                 .fillMaxWidth()
                 .fillMaxHeight(2f / 3f),
 
