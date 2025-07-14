@@ -1,12 +1,10 @@
-package com.alihan.tripwise.presentation.ui.onBoard
+package com.alihan.tripwise.presentation.ui
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -19,34 +17,20 @@ import androidx.navigation.NavHostController
 import com.alihan.tripwise.R
 import com.alihan.tripwise.ui.theme.Blue
 import com.google.accompanist.pager.*
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun Onboard(navController: NavHostController) {
     val pagerState = rememberPagerState()
-    val isDark = isSystemInDarkTheme()
-    val boxColor = if (isDark) Color.Black else Color.White
-    val systemUiController = rememberSystemUiController()
     val coroutineScope = rememberCoroutineScope()
 
 
 
 
-    SideEffect {
-        systemUiController.setStatusBarColor(
-            color = Color.Transparent,
-            darkIcons = !isDark
-        )
-    }
-
-
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
-        contentWindowInsets = WindowInsets(0, 0, 0, 0),
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -92,7 +76,7 @@ fun Onboard(navController: NavHostController) {
                             buttonText = "Next",
                             description = "To get the best of your adventure you just need to leave and go where you like. we are waiting for you"
                             ,
-                        onButtonClick = { navController.navigate("home") }
+                        onButtonClick = { navController.navigate("login") }
                     )
                 }
             }
@@ -121,7 +105,7 @@ fun PageContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(bottom = 20.dp),
+            .padding(bottom = 10.dp),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -129,6 +113,7 @@ fun PageContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(2f / 3f),
+
             contentAlignment = Alignment.TopCenter
         ) {
             Image(
@@ -152,7 +137,7 @@ fun PageContent(
 
         Text(
             text = description,
-            fontSize = 15.sp,
+            fontSize = 12.sp,
             style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
             modifier = Modifier
@@ -178,11 +163,13 @@ fun PageContent(
                 Text(
                     text = buttonText, fontSize = (13.sp),
                     style = MaterialTheme.typography.headlineSmall,
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier.align(Alignment.Center),
+                    color = Color.White
                 )
                 Icon(
                     painter = painterResource(id = R.drawable.baseline_keyboard_arrow_right_24),
                     contentDescription = null,
+                    tint = Color.White,
                     modifier = Modifier.align(Alignment.CenterEnd)
                 )
             }
