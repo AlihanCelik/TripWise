@@ -98,7 +98,6 @@ fun LoginScreen(navController: NavHostController) {
             )
 
             Spacer(modifier = Modifier.height(16.dp))
-
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
@@ -108,7 +107,6 @@ fun LoginScreen(navController: NavHostController) {
                 singleLine = true,
                 visualTransformation = PasswordVisualTransformation()
             )
-
             Spacer(modifier = Modifier.height(8.dp))
 
             Row(
