@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = "onboard",
+                        startDestination = "home",
                         //startDestination = "onboard",
                         modifier = Modifier.padding(innerPadding)
                     ) {
