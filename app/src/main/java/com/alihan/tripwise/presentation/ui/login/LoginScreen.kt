@@ -122,6 +122,7 @@ fun LoginScreen(navController: NavHostController) {
 
             Button(
                 onClick = {
+                    navController.navigate("home")
                 },
                 modifier = Modifier
                     .fillMaxWidth(),

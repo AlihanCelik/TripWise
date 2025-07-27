@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.alihan.tripwise.presentation.ui.Onboard
+import com.alihan.tripwise.presentation.ui.home.HomeScreen
 import com.alihan.tripwise.presentation.ui.login.LoginScreen
 import com.alihan.tripwise.presentation.ui.login.SignUpScreen
 import com.alihan.tripwise.ui.theme.TripWiseTheme
@@ -26,12 +27,14 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = "onboard",
+                        startDestination = "home",
+                        //startDestination = "onboard",
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable("onboard") { Onboard(navController) }
                         composable("login") { LoginScreen(navController) }
                         composable("signup") { SignUpScreen(navController) }
+                        composable("home") { HomeScreen(navController) }
                     }
                 }
 
