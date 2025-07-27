@@ -94,6 +94,7 @@ fun BestDestination(
                 ) {
                     Text(
                         text = destinationName,
+                        maxLines = 1,
                         fontSize = 16.sp,
                         style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.Bold,
