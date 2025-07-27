@@ -91,6 +91,8 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-pager-indicators:0.30.1")
 
     implementation("com.google.accompanist:accompanist-navigation-animation:0.34.0")
+
+    implementation("io.coil-kt:coil-compose:2.4.0")
 }
 kapt {
     correctErrorTypes = true
