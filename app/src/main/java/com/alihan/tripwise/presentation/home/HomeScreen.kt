@@ -1,11 +1,8 @@
-package com.alihan.tripwise.presentation.ui.home
+package com.alihan.tripwise.presentation.home
 
-import android.view.Display.Mode
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,12 +11,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -33,27 +28,33 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alihan.tripwise.R
-import com.alihan.tripwise.presentation.ui.component.BestDestination
+import com.alihan.tripwise.presentation.ui.component.BestDestinationCard
 import com.alihan.tripwise.ui.theme.Blue
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(
+    navController: NavController,
+    viewModel: HomeViewModel = hiltViewModel()
+) {
+    val destinations by viewModel.destinations.collectAsState()
     val isDark = isSystemInDarkTheme()
     val backgroundColor = if (isDark) MaterialTheme.colorScheme.surface else Color.White
-    Scaffold (
+
+    Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
@@ -75,8 +76,7 @@ fun HomeScreen(navController: NavController) {
                     }
                 },
                 navigationIcon = {
-                    IconButton(onClick = {
-                    }) {
+                    IconButton(onClick = { }) {
                         Icon(
                             painter = painterResource(id = R.drawable.menu),
                             modifier = Modifier.size(25.dp),
@@ -91,11 +91,12 @@ fun HomeScreen(navController: NavController) {
                 )
             )
         }
-    ){ innerPadding ->
-        Column (
+    ) { innerPadding ->
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)) {
+                .padding(innerPadding)
+        ) {
             Spacer(modifier = Modifier.padding(vertical = 10.dp))
             Text(
                 text = "Explore the",
@@ -108,9 +109,11 @@ fun HomeScreen(navController: NavController) {
                 textAlign = TextAlign.Center
             )
 
-            Row (modifier = Modifier
-                .padding(horizontal = 15.dp, vertical = 8.dp)
-                .align(Alignment.Start)){
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 15.dp, vertical = 8.dp)
+                    .align(Alignment.Start)
+            ) {
                 Text(
                     text = "Beautiful",
                     fontSize = 25.sp,
@@ -125,14 +128,13 @@ fun HomeScreen(navController: NavController) {
                     style = MaterialTheme.typography.headlineSmall,
                     textAlign = TextAlign.Center
                 )
-
             }
             Spacer(modifier = Modifier.height(20.dp))
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
-                    .clickable {  },
+                    .clickable { },
                 shape = RoundedCornerShape(15.dp),
                 colors = CardDefaults.cardColors(containerColor = backgroundColor),
                 elevation = CardDefaults.cardElevation(6.dp)
@@ -160,24 +162,26 @@ fun HomeScreen(navController: NavController) {
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))
-            Row (modifier = Modifier
-                .padding(horizontal = 15.dp, vertical = 5.dp)
-                .fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
-            , horizontalArrangement = Arrangement.SpaceBetween){
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 15.dp, vertical = 5.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
                 Text(
                     text = "Best Destination",
                     fontSize = 15.sp,
                     style = MaterialTheme.typography.headlineSmall,
                     textAlign = TextAlign.Start
                 )
-                TextButton(onClick = { /*TODO*/ }) {
+                TextButton(onClick = { }) {
                     Text(
                         text = "View all",
                         fontSize = 12.sp,
                         style = MaterialTheme.typography.headlineSmall,
                         textAlign = TextAlign.End
                     )
-
                 }
             }
             LazyRow(
@@ -185,37 +189,17 @@ fun HomeScreen(navController: NavController) {
                     .fillMaxWidth()
                     .padding(horizontal = 4.dp)
             ) {
-                items(fakeDestinations) { destination ->
-                    BestDestination(
-                        imageUrl = "https://assets.micontenthub.com/traveloffers/travel-tips/the-blue-mosque-in-istanbul-turkey_uBl9m1ErD.jpg",
+                items(destinations) { destination ->
+                    BestDestinationCard(
+                        imageUrl = destination.imageUrl,
                         destinationName = destination.name,
                         rating = destination.rating,
                         address = destination.address
                     )
                 }
             }
-
-
-
-            }
-
-
-
         }
-
-
+    }
 }
 
-data class Destination(
-    val name: String,
-    val rating: Double,
-    val address: String,
-    val imageRes: Int )
 
-val fakeDestinations = listOf(
-    Destination("Paris", 4.8, "France", R.drawable.img_1),
-    Destination("Tokyo", 4.7, "Japan", R.drawable.img_1),
-    Destination("Istanbul", 4.5, "Turkey", R.drawable.img_1),
-    Destination("New York", 4.6, "USA", R.drawable.img_1),
-    Destination("Rome", 4.4, "Italy", R.drawable.img_1)
-)

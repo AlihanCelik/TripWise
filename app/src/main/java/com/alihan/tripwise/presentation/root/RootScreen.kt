@@ -1,4 +1,4 @@
-package com.alihan.tripwise.Root
+package com.alihan.tripwise.presentation.root
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -13,23 +13,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.alihan.tripwise.Navigation.AppScreen
-import com.alihan.tripwise.presentation.ui.home.HomeScreen
+import com.alihan.tripwise.domain.model.AuthState
+import com.alihan.tripwise.presentation.home.HomeScreen
+import com.alihan.tripwise.presentation.navigation.AppScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun RootScreen(
     navController: NavHostController,
-    rootScreenViewModel: RootScreenViewModel = hiltViewModel(),
-    selectedTabIndex: Int
+    viewModel: RootViewModel = hiltViewModel(),
+    selectedTabIndex: Int = 0
 ) {
-    val authState by rootScreenViewModel.authState.collectAsState()
-
-
+    val authState by viewModel.authState.collectAsState()
 
     when (authState) {
         is AuthState.Pending -> {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
                 CircularProgressIndicator()
             }
         }

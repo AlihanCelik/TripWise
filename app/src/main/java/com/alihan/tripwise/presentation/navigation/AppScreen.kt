@@ -1,4 +1,4 @@
-package com.alihan.tripwise.Navigation
+package com.alihan.tripwise.presentation.navigation
 
 sealed class AppScreen(val route: String) {
     data object Onboard : AppScreen("onboard")
@@ -7,5 +7,5 @@ sealed class AppScreen(val route: String) {
     data object Home : AppScreen("home")
     data object Root : AppScreen("root")
     data object ForgotPassword : AppScreen("forgotpassword")
-
+    data object Otp : AppScreen("otp")
 }

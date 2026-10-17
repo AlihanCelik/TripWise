@@ -1,4 +1,4 @@
-package com.alihan.tripwise.presentation.ui.login
+package com.alihan.tripwise.presentation.auth.login
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -10,10 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,48 +23,49 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.alihan.tripwise.Navigation.AppScreen
 import com.alihan.tripwise.R
+import com.alihan.tripwise.presentation.navigation.AppScreen
 import com.alihan.tripwise.ui.theme.Blue
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavHostController) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { },
-                navigationIcon = {
+fun LoginScreen(
+    navController: NavHostController,
+    viewModel: LoginViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsState()
 
-                }
-
-            )
+    LaunchedEffect(uiState.isSuccess) {
+        if (uiState.isSuccess) {
+            navController.navigate(AppScreen.Home.route) {
+                popUpTo(AppScreen.Login.route) { inclusive = true }
+            }
         }
-    ) { innerPadding ->
-        var email by rememberSaveable { mutableStateOf("") }
-        var password by rememberSaveable { mutableStateOf("") }
+    }
 
+    Scaffold(
+        topBar = { TopAppBar(title = { }) }
+    ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
                 .padding(24.dp),
-            verticalArrangement = Arrangement.Top,
+            verticalArrangement = Arrangement.Top
         ) {
             Text(
                 text = "Sign in now",
@@ -75,7 +73,8 @@ fun LoginScreen(navController: NavHostController) {
                     .align(Alignment.CenterHorizontally)
                     .padding(bottom = 20.dp),
                 style = MaterialTheme.typography.headlineSmall,
-                fontSize = 20.sp)
+                fontSize = 20.sp
+            )
             Text(
                 text = "Please sign in to continue our app",
                 modifier = Modifier
@@ -84,10 +83,11 @@ fun LoginScreen(navController: NavHostController) {
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
                 style = MaterialTheme.typography.headlineSmall,
-                fontSize = 15.sp)
+                fontSize = 15.sp
+            )
             OutlinedTextField(
-                value = email,
-                onValueChange = { email = it },
+                value = uiState.email,
+                onValueChange = { viewModel.onEmailChanged(it) },
                 label = { Text("Email") },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20),
@@ -96,8 +96,8 @@ fun LoginScreen(navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
+                value = uiState.password,
+                onValueChange = { viewModel.onPasswordChanged(it) },
                 label = { Text("Password") },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20),
@@ -105,6 +105,7 @@ fun LoginScreen(navController: NavHostController) {
                 visualTransformation = PasswordVisualTransformation()
             )
             Spacer(modifier = Modifier.height(8.dp))
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
@@ -119,17 +120,10 @@ fun LoginScreen(navController: NavHostController) {
             Spacer(modifier = Modifier.height(24.dp))
 
             Button(
-                onClick = {
-                    navController.navigate(AppScreen.Home.route) {
-                        popUpTo(AppScreen.Login.route) { inclusive = true }
-                    }
-                },
-                modifier = Modifier
-                    .fillMaxWidth(),
+                onClick = { viewModel.login() },
+                modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Blue,
-                ),
+                colors = ButtonDefaults.buttonColors(containerColor = Blue)
             ) {
                 Box(
                     modifier = Modifier
@@ -137,12 +131,12 @@ fun LoginScreen(navController: NavHostController) {
                         .padding(12.dp)
                 ) {
                     Text(
-                        text = "Sign in", fontSize = (13.sp),
+                        text = "Sign in",
+                        fontSize = 13.sp,
                         style = MaterialTheme.typography.headlineSmall,
                         modifier = Modifier.align(Alignment.Center),
                         color = Color.White
                     )
-
                 }
             }
             Row(
@@ -150,22 +144,24 @@ fun LoginScreen(navController: NavHostController) {
                     .fillMaxWidth()
                     .padding(top = 15.dp),
                 horizontalArrangement = Arrangement.Center
-
             ) {
                 Text(
                     text = "Don't have an account?",
                     fontSize = 13.sp,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
-                    )
-                Text(text = "Sign up",
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
+                )
+                Text(
+                    text = "Sign up",
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Bold,
                     color = Blue,
-                    modifier = Modifier.padding(start = 3.dp)
+                    modifier = Modifier
+                        .padding(start = 3.dp)
                         .clickable {
                             navController.navigate(AppScreen.SignUp.route)
-                        })
-                }
+                        }
+                )
+            }
             Text(
                 text = "Or connect",
                 modifier = Modifier
@@ -179,18 +175,19 @@ fun LoginScreen(navController: NavHostController) {
 
             Row(
                 horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(top=20.dp)
-                    .fillMaxWidth())
-            {
-                IconButton(onClick = {  }) {
+                modifier = Modifier
+                    .padding(top = 20.dp)
+                    .fillMaxWidth()
+            ) {
+                IconButton(onClick = { }) {
                     Icon(
                         painter = painterResource(id = R.drawable.facebook1),
                         contentDescription = "Facebook",
-                        tint = Color.Unspecified // Renk bozulmasın diye
+                        tint = Color.Unspecified
                     )
                 }
 
-                IconButton(onClick = { /* Facebook login */ }) {
+                IconButton(onClick = { }) {
                     Icon(
                         painter = painterResource(id = R.drawable.instagram),
                         contentDescription = "Instagram",
@@ -198,7 +195,7 @@ fun LoginScreen(navController: NavHostController) {
                     )
                 }
 
-                IconButton(onClick = {  }) {
+                IconButton(onClick = { }) {
                     Icon(
                         painter = painterResource(id = R.drawable.twitter),
                         contentDescription = "Twitter",
@@ -206,9 +203,6 @@ fun LoginScreen(navController: NavHostController) {
                     )
                 }
             }
-
-
-            }
         }
-
+    }
 }

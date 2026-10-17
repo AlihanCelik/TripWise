@@ -1,11 +1,24 @@
-package com.alihan.tripwise.presentation.ui
+package com.alihan.tripwise.presentation.onboarding
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -14,31 +27,28 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.alihan.tripwise.Navigation.AppScreen
 import com.alihan.tripwise.R
+import com.alihan.tripwise.presentation.navigation.AppScreen
 import com.alihan.tripwise.ui.theme.Blue
-import com.google.accompanist.pager.*
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.HorizontalPagerIndicator
+import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun Onboard(navController: NavHostController) {
+fun OnboardScreen(navController: NavHostController) {
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
 
-
-
-
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
-                ,
-
         ) {
             HorizontalPager(
                 count = 3,
@@ -50,7 +60,7 @@ fun Onboard(navController: NavHostController) {
                         title = "Life is short and the world is wide",
                         image = R.drawable.img,
                         buttonText = "Get Started",
-                        description = "At Friends tours and travel, we customize reliable and trutworthy educational tours to destinations all over the world",
+                        description = "At Friends tours and travel, we customize reliable and trustworthy educational tours to destinations all over the world",
                         onButtonClick = {
                             coroutineScope.launch {
                                 pagerState.animateScrollToPage(1)
@@ -62,21 +72,19 @@ fun Onboard(navController: NavHostController) {
                         title = "It’s a big world out there go explore",
                         image = R.drawable.img2,
                         buttonText = "Next",
-                        description = "To get the best of your adventure you just need to leave and go where you like. we are waiting for you"
-                        ,onButtonClick = {
+                        description = "To get the best of your adventure you just need to leave and go where you like. We are waiting for you",
+                        onButtonClick = {
                             coroutineScope.launch {
                                 pagerState.animateScrollToPage(2)
                             }
                         }
                     )
 
-                    2 ->
-                        PageContent(
-                            title = "People don’t take trips, trips take people",
-                            image = R.drawable.img3,
-                            buttonText = "Next",
-                            description = "To get the best of your adventure you just need to leave and go where you like. we are waiting for you"
-                            ,
+                    2 -> PageContent(
+                        title = "People don’t take trips, trips take people",
+                        image = R.drawable.img3,
+                        buttonText = "Next",
+                        description = "To get the best of your adventure you just need to leave and go where you like. We are waiting for you",
                         onButtonClick = {
                             navController.navigate(AppScreen.Login.route) {
                                 popUpTo(AppScreen.Onboard.route) { inclusive = true }
@@ -100,13 +108,12 @@ fun Onboard(navController: NavHostController) {
 
 @Composable
 fun PageContent(
-    title:String="",
-    description:String="",
-    image: Int ,
-    buttonText:String="",
+    title: String = "",
+    description: String = "",
+    image: Int,
+    buttonText: String = "",
     onButtonClick: () -> Unit = {}
 ) {
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -119,14 +126,12 @@ fun PageContent(
                 .padding(horizontal = 25.dp)
                 .fillMaxWidth()
                 .fillMaxHeight(2f / 3f),
-
             contentAlignment = Alignment.TopCenter
         ) {
             Image(
                 painter = painterResource(id = image),
                 contentDescription = null,
-                modifier = Modifier
-                    .fillMaxSize(),
+                modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Fit
             )
         }
@@ -136,7 +141,8 @@ fun PageContent(
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
-                .padding(top = 16.dp).padding(horizontal = 24.dp)
+                .padding(top = 16.dp)
+                .padding(horizontal = 24.dp)
                 .align(Alignment.CenterHorizontally),
             textAlign = TextAlign.Center
         )
@@ -152,22 +158,21 @@ fun PageContent(
             textAlign = TextAlign.Center
         )
         Button(
-            onClick = {
-                onButtonClick()
-            },
+            onClick = { onButtonClick() },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
             shape = RoundedCornerShape(10.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Blue,
-            ),
+            colors = ButtonDefaults.buttonColors(containerColor = Blue)
         ) {
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            ) {
                 Text(
-                    text = buttonText, fontSize = (13.sp),
+                    text = buttonText,
+                    fontSize = 13.sp,
                     style = MaterialTheme.typography.headlineSmall,
                     modifier = Modifier.align(Alignment.Center),
                     color = Color.White
@@ -180,16 +185,5 @@ fun PageContent(
                 )
             }
         }
-
-
-
-
     }
 }
-
-
-
-
-
-
-

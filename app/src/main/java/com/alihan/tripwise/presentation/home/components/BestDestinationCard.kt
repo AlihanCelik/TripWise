@@ -31,7 +31,7 @@ import com.alihan.tripwise.R
 import com.alihan.tripwise.ui.theme.YellowDark
 
 @Composable
-fun BestDestination(
+fun BestDestinationCard(
     imageUrl: String,
     destinationName: String,
     rating: Double,
