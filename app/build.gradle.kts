@@ -55,6 +55,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.espresso.core)
+    implementation(libs.play.services.cast.framework)
     val nav_version = "2.8.9"
     val hilt_version = "2.56.1"
     implementation(libs.androidx.core.ktx)
@@ -81,6 +83,7 @@ dependencies {
 
     implementation ("com.google.dagger:hilt-android:$hilt_version")
     kapt ("com.google.dagger:hilt-android-compiler:$hilt_version")
+    implementation ("androidx.hilt:hilt-navigation-compose:1.2.0")
 
 
     implementation ("de.hdodenhof:circleimageview:3.1.0")
