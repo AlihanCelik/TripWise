@@ -41,6 +41,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.alihan.tripwise.Navigation.AppScreen
 import com.alihan.tripwise.R
 import com.alihan.tripwise.ui.theme.Blue
 
@@ -128,6 +129,9 @@ fun SignUpScreen(navController: NavHostController) {
 
             Button(
                 onClick = {
+                    navController.navigate(AppScreen.Home.route) {
+                        popUpTo(AppScreen.SignUp.route) { inclusive = true }
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -168,7 +172,9 @@ fun SignUpScreen(navController: NavHostController) {
                     color = Blue,
                     modifier = Modifier.padding(start = 3.dp)
                         .clickable {
-                            navController.navigate("login")
+                            navController.navigate(AppScreen.Login.route) {
+                                popUpTo(AppScreen.SignUp.route) { inclusive = true }
+                            }
                         })
             }
             Text(

@@ -41,6 +41,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.alihan.tripwise.Navigation.AppScreen
 import com.alihan.tripwise.R
 import com.alihan.tripwise.ui.theme.Blue
 
@@ -52,13 +53,9 @@ fun LoginScreen(navController: NavHostController) {
             TopAppBar(
                 title = { },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
+
                 }
+
             )
         }
     ) { innerPadding ->
@@ -113,7 +110,9 @@ fun LoginScreen(navController: NavHostController) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
-                TextButton(onClick = { /* forgot password */ }) {
+                TextButton(onClick = {
+                    navController.navigate(AppScreen.ForgotPassword.route)
+                }) {
                     Text("Forgot Password?")
                 }
             }
@@ -122,7 +121,9 @@ fun LoginScreen(navController: NavHostController) {
 
             Button(
                 onClick = {
-                    navController.navigate("home")
+                    navController.navigate(AppScreen.Home.route) {
+                        popUpTo(AppScreen.Login.route) { inclusive = true }
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -163,7 +164,7 @@ fun LoginScreen(navController: NavHostController) {
                     color = Blue,
                     modifier = Modifier.padding(start = 3.dp)
                         .clickable {
-                            navController.navigate("signup")
+                            navController.navigate(AppScreen.SignUp.route)
                         })
                 }
             Text(

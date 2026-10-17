@@ -22,13 +22,7 @@ class RootScreenViewModel @Inject constructor(): ViewModel() {
     }
 
     fun checkAuthStatus() {
-        val dummyPassword = "123456"
-        val dummyUsername = "alihan"
-
-        if (dummyUsername == "alihan" && dummyPassword == "123456") {
-            _authState.value = AuthState.LoggedIn
-        } else {
-            _authState.value = AuthState.LoggedOut
-        }
+        // App starts on Login screen
+        _authState.value = AuthState.LoggedOut
     }
 }

@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.alihan.tripwise.Navigation.AppScreen
+import com.alihan.tripwise.presentation.ui.home.HomeScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -52,5 +53,5 @@ fun RootScreen(
 
 @Composable
 fun MainTabView(navController: NavHostController, selectedTabIndexNav: Int) {
-    TODO("Not yet implemented")
+    HomeScreen(navController = navController)
 }

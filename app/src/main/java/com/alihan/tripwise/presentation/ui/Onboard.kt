@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.alihan.tripwise.Navigation.AppScreen
 import com.alihan.tripwise.R
 import com.alihan.tripwise.ui.theme.Blue
 import com.google.accompanist.pager.*
@@ -76,7 +77,11 @@ fun Onboard(navController: NavHostController) {
                             buttonText = "Next",
                             description = "To get the best of your adventure you just need to leave and go where you like. we are waiting for you"
                             ,
-                        onButtonClick = { navController.navigate("login") }
+                        onButtonClick = {
+                            navController.navigate(AppScreen.Login.route) {
+                                popUpTo(AppScreen.Onboard.route) { inclusive = true }
+                            }
+                        }
                     )
                 }
             }
