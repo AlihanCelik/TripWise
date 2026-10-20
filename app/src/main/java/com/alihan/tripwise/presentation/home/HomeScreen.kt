@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alihan.tripwise.R
+import com.alihan.tripwise.presentation.home.alldestinations.components.SmallProfile
 import com.alihan.tripwise.presentation.navigation.AppScreen
 import com.alihan.tripwise.presentation.ui.component.BestDestinationCard
 import com.alihan.tripwise.ui.theme.Blue
@@ -58,7 +59,7 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = {
+                actions = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = Icons.Default.LocationOn,
@@ -76,14 +77,11 @@ fun HomeScreen(
                         )
                     }
                 },
+                title = {
+
+                },
                 navigationIcon = {
-                    IconButton(onClick = { }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.menu),
-                            modifier = Modifier.size(25.dp),
-                            contentDescription = "Menu"
-                        )
-                    }
+                    SmallProfile()
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
