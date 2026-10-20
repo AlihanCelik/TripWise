@@ -1,7 +1,7 @@
 package com.alihan.tripwise.data.repository
 
 import com.alihan.tripwise.data.datasource.FakeAuthDataSource
-import com.alihan.tripwise.domain.model.AuthState
+import com.alihan.tripwise.di.model.AuthState
 import com.alihan.tripwise.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject

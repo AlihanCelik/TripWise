@@ -1,6 +1,6 @@
 package com.alihan.tripwise.domain.usecase
 
-import com.alihan.tripwise.domain.model.AuthState
+import com.alihan.tripwise.di.model.AuthState
 import com.alihan.tripwise.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject

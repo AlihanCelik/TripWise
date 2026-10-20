@@ -1,4 +1,4 @@
-package com.alihan.tripwise.domain.model
+package com.alihan.tripwise.di.model
 
 data class User(
     val name: String,

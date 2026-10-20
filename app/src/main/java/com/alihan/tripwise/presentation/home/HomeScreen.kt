@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alihan.tripwise.R
+import com.alihan.tripwise.presentation.navigation.AppScreen
 import com.alihan.tripwise.presentation.ui.component.BestDestinationCard
 import com.alihan.tripwise.ui.theme.Blue
 
@@ -175,7 +176,7 @@ fun HomeScreen(
                     style = MaterialTheme.typography.headlineSmall,
                     textAlign = TextAlign.Start
                 )
-                TextButton(onClick = { }) {
+                TextButton(onClick = { navController.navigate(AppScreen.AllDestinations.route) }) {
                     Text(
                         text = "View all",
                         fontSize = 12.sp,

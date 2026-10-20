@@ -1,4 +1,4 @@
-package com.alihan.tripwise.domain.model
+package com.alihan.tripwise.di.model
 
 sealed interface AuthState {
     data object Pending : AuthState

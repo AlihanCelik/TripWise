@@ -1,7 +1,7 @@
 package com.alihan.tripwise.data.datasource
 
 import com.alihan.tripwise.R
-import com.alihan.tripwise.domain.model.Destination
+import com.alihan.tripwise.di.model.Destination
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject

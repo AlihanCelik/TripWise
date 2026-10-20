@@ -1,6 +1,6 @@
 package com.alihan.tripwise.domain.repository
 
-import com.alihan.tripwise.domain.model.AuthState
+import com.alihan.tripwise.di.model.AuthState
 import kotlinx.coroutines.flow.StateFlow
 
 interface AuthRepository {

@@ -2,7 +2,7 @@ package com.alihan.tripwise.presentation.root
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alihan.tripwise.domain.model.AuthState
+import com.alihan.tripwise.di.model.AuthState
 import com.alihan.tripwise.domain.usecase.CheckAuthUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow

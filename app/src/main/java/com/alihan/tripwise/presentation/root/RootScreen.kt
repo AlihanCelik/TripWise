@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.alihan.tripwise.domain.model.AuthState
+import com.alihan.tripwise.di.model.AuthState
 import com.alihan.tripwise.presentation.home.HomeScreen
 import com.alihan.tripwise.presentation.navigation.AppScreen
 

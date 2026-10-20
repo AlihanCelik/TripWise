@@ -2,7 +2,7 @@ package com.alihan.tripwise.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alihan.tripwise.domain.model.Destination
+import com.alihan.tripwise.di.model.Destination
 import com.alihan.tripwise.domain.usecase.GetBestDestinationsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
