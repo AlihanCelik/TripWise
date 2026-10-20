@@ -25,8 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImagePainter
-import coil.compose.rememberAsyncImagePainter
+import coil.compose.SubcomposeAsyncImage
 import com.alihan.tripwise.R
 import com.alihan.tripwise.ui.theme.YellowDark
 
@@ -56,23 +55,32 @@ fun BestDestinationCard(
                     .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)),
                 contentAlignment = Alignment.Center
             ) {
-                val painter = rememberAsyncImagePainter(model = imageUrl)
-                val state = painter.state
-
-                Image(
-                    painter = painter,
+                SubcomposeAsyncImage(
+                    model = imageUrl.ifEmpty { R.drawable.img_1 },
                     contentDescription = destinationName,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
+                    loading = {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(36.dp),
+                                color = MaterialTheme.colorScheme.primary,
+                                strokeWidth = 3.dp
+                            )
+                        }
+                    },
+                    error = {
+                        Image(
+                            painter = painterResource(id = R.drawable.img_1),
+                            contentDescription = destinationName,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
                 )
-
-                if (state is AsyncImagePainter.State.Loading) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(30.dp),
-                        color = MaterialTheme.colorScheme.primary,
-                        strokeWidth = 2.dp
-                    )
-                }
 
                 Icon(
                     painter = painterResource(id = R.drawable.bookmark),

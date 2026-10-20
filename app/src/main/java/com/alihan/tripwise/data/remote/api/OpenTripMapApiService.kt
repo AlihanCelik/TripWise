@@ -14,9 +14,20 @@ interface OpenTripMapApiService {
         @Query("lon_max") lonMax: Double = 45.0,
         @Query("lat_min") latMin: Double = 36.0,
         @Query("lat_max") latMax: Double = 42.0,
-        @Query("rate") rate: Int = 3,
+        @Query("rate") rate: Int = 2,
         @Query("format") format: String = "json",
-        @Query("limit") limit: Int = 10,
+        @Query("limit") limit: Int = 20,
+        @Query("apikey") apiKey: String
+    ): List<OpenTripMapPlaceDto>
+
+    @GET("places/radius")
+    suspend fun getPlacesInRadius(
+        @Query("radius") radius: Int = 50000,
+        @Query("lon") lon: Double,
+        @Query("lat") lat: Double,
+        @Query("rate") rate: Int = 2,
+        @Query("format") format: String = "json",
+        @Query("limit") limit: Int = 30,
         @Query("apikey") apiKey: String
     ): List<OpenTripMapPlaceDto>
 

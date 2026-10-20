@@ -13,6 +13,12 @@ import javax.inject.Inject
 
 data class AllDestinationsUiState(
     val destinations: List<Destination> = emptyList(),
+    val filteredDestinations: List<Destination> = emptyList(),
+    val searchQuery: String = "",
+    val selectedCountry: String = "All",
+    val selectedCity: String = "All",
+    val selectedCategory: String = "All",
+    val selectedSortOption: String = "Rating (High to Low)",
     val isLoading: Boolean = false,
     val isLoadingMore: Boolean = false,
     val hasMore: Boolean = true,
@@ -44,6 +50,66 @@ class AllDestinationsViewModel @Inject constructor(
                 destinations = newItems,
                 hasMore = newItems.size >= pageSize
             )
+            applyFilters()
+        }
+    }
+
+    fun onSearchQueryChanged(query: String) {
+        _uiState.value = _uiState.value.copy(searchQuery = query)
+        applyFilters()
+    }
+
+    fun onCategorySelected(category: String) {
+        _uiState.value = _uiState.value.copy(selectedCategory = category)
+        applyFilters()
+    }
+
+    fun onApplyAdvancedFilters(country: String, city: String, category: String, sortOption: String) {
+        _uiState.value = _uiState.value.copy(
+            selectedCountry = country,
+            selectedCity = city,
+            selectedCategory = category,
+            selectedSortOption = sortOption
+        )
+        applyFilters()
+    }
+
+    private fun applyFilters() {
+        val state = _uiState.value
+        val query = state.searchQuery.trim().lowercase()
+        val country = state.selectedCountry.trim().lowercase()
+        val city = state.selectedCity.trim().lowercase()
+        val category = state.selectedCategory.trim().lowercase()
+
+        var filtered = state.destinations.filter { destination ->
+            val name = destination.name.lowercase()
+            val address = destination.address.lowercase()
+
+            val matchesQuery = query.isBlank() || name.contains(query) || address.contains(query)
+
+            val matchesCountry = if (country == "all") true else address.contains(country) || name.contains(country)
+
+            val matchesCity = if (city == "all") true else address.contains(city) || name.contains(city)
+
+            val matchesCategory = if (category == "all" || category == "historical" || category == "nature" || category == "culture") {
+                true
+            } else {
+                name.contains(category) || address.contains(category)
+            }
+
+            matchesQuery && matchesCountry && matchesCity && matchesCategory
+        }
+
+        filtered = if (state.selectedSortOption == "Name (A-Z)") {
+            filtered.sortedBy { it.name }
+        } else {
+            filtered.sortedByDescending { it.rating }
+        }
+
+        _uiState.value = state.copy(filteredDestinations = filtered)
+
+        if (filtered.isEmpty() && state.hasMore && !state.isLoading && !state.isLoadingMore) {
+            loadNextPage()
         }
     }
 
@@ -55,12 +121,16 @@ class AllDestinationsViewModel @Inject constructor(
             val newItems = getAllDestinationsUseCase(limit = pageSize, offset = currentOffset)
             if (newItems.isNotEmpty()) {
                 currentOffset += newItems.size
-                val updatedList = _uiState.value.destinations + newItems
+                val updatedList = (_uiState.value.destinations + newItems)
+                    .distinctBy { it.name.trim().lowercase() }
+                    .distinctBy { it.id }
+
                 _uiState.value = _uiState.value.copy(
                     isLoadingMore = false,
                     destinations = updatedList,
                     hasMore = newItems.size >= pageSize
                 )
+                applyFilters()
             } else {
                 _uiState.value = _uiState.value.copy(
                     isLoadingMore = false,
