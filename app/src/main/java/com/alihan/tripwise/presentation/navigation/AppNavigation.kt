@@ -12,7 +12,7 @@ import com.alihan.tripwise.presentation.auth.login.LoginScreen
 import com.alihan.tripwise.presentation.auth.otp.OtpScreen
 import com.alihan.tripwise.presentation.auth.signup.SignUpScreen
 import com.alihan.tripwise.presentation.home.HomeScreen
-import com.alihan.tripwise.presentation.home.alldestinations.AllDestinationsScreen
+import com.alihan.tripwise.presentation.alldestinations.AllDestinationsScreen
 import com.alihan.tripwise.presentation.onboarding.OnboardScreen
 import com.alihan.tripwise.presentation.root.RootScreen
 

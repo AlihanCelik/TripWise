@@ -1,4 +1,4 @@
-package com.alihan.tripwise.presentation.home.components
+package com.alihan.tripwise.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

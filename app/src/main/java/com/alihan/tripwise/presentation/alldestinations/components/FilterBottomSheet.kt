@@ -1,4 +1,4 @@
-package com.alihan.tripwise.presentation.home.alldestinations.components
+package com.alihan.tripwise.presentation.alldestinations.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

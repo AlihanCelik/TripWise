@@ -1,4 +1,4 @@
-package com.alihan.tripwise.presentation.home.alldestinations
+package com.alihan.tripwise.presentation.alldestinations
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -55,8 +55,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alihan.tripwise.R
-import com.alihan.tripwise.presentation.home.alldestinations.components.FilterBottomSheet
-import com.alihan.tripwise.presentation.home.components.ModernDestinationCard
+import com.alihan.tripwise.presentation.alldestinations.components.FilterBottomSheet
+import com.alihan.tripwise.presentation.components.ModernDestinationCard
 import com.alihan.tripwise.ui.theme.Blue
 
 @OptIn(ExperimentalMaterial3Api::class)

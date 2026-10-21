@@ -1,19 +1,17 @@
-package com.alihan.tripwise.presentation.home.components
+package com.alihan.tripwise.presentation.components
 
 import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -31,14 +29,14 @@ import com.alihan.tripwise.R
 fun CircularProfileImageView(
     profileImageUrl: String? = null,
     profileImageUri: Uri? = null,
-    size: Size,
+    size: Size = Size.Medium,
     modifier: Modifier = Modifier
 ) {
 
     val placeholderPainter =  painterResource(id =R.drawable.user)
 
     val imageData: Any? = profileImageUri ?: profileImageUrl?.takeIf { it.isNotBlank() }
-    android.util.Log.d("CircularProfileImg", "imageData=$imageData | url=$profileImageUrl | uri=$profileImageUri")
+    Log.d("CircularProfileImg", "imageData=$imageData | url=$profileImageUrl | uri=$profileImageUri")
 
     Box(modifier = modifier.size(size.dimension)) {
         if (imageData != null) {

@@ -36,14 +36,14 @@ fun RootScreen(
             }
         }
 
-        is AuthState.LoggedIn -> {
+        is AuthState.LoggedOut -> {
             MainTabView(
                 navController = navController,
                 selectedTabIndexNav = selectedTabIndex
             )
         }
 
-        is AuthState.LoggedOut -> {
+        is AuthState.LoggedIn -> {
             LaunchedEffect(Unit) {
                 navController.navigate(AppScreen.Login.route) {
                     popUpTo(AppScreen.Root.route) { inclusive = true }

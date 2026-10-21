@@ -10,9 +10,9 @@ import com.alihan.tripwise.R
 
 
 val InterFont = FontFamily(
-    Font(R.font.poppins_regular, FontWeight.Normal),
-    Font(R.font.poppins_medium, FontWeight.Medium),
-    Font(R.font.poppins_bold, FontWeight.Bold)
+    Font(R.font.spartanmedium, FontWeight.Normal),
+    Font(R.font.spartanbold, FontWeight.Medium),
+    Font(R.font.spartanextrabold, FontWeight.Bold)
 )
 
 val Typography = Typography(

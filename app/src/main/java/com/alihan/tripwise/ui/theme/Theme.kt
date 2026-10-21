@@ -1,6 +1,5 @@
 package com.alihan.tripwise.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -14,26 +13,36 @@ import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
     primary = Blue,
-    secondary = Blue,
+    onPrimary = Color.White,
+    primaryContainer = Color(0xFF0040A8),
+    onPrimaryContainer = Color.White,
+    secondary = Color(0xFF8C9EFF),
+    onSecondary = Color.Black,
     tertiary = Blue,
-    background = Color.Black
+    background = Color(0xFF121212),
+    onBackground = Color.White,
+    surface = Color(0xFF1E1E1E),
+    onSurface = Color.White,
+    surfaceVariant = Color(0xFF2C2C2C),
+    onSurfaceVariant = Color(0xFFC5C5C5),
+    outline = Color(0xFF8A8A8A)
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Blue,
-    secondary = Blue,
-    tertiary = Blue,
-    background = Color.White
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
     onPrimary = Color.White,
+    primaryContainer = Color(0xFFD6E4FF),
+    onPrimaryContainer = Color(0xFF001B3D),
+    secondary = Color(0xFF5B6B92),
     onSecondary = Color.White,
-    onTertiary = Color.White,
+    tertiary = Blue,
+    background = Color.White,
     onBackground = Color(0xFF1C1B1F),
+    surface = Color.White,
     onSurface = Color(0xFF1C1B1F),
-    */
+    surfaceVariant = Color(0xFFF2F4F7),
+    onSurfaceVariant = Color(0xFF49454F),
+    outline = Color(0xFF79747E)
 )
 
 @Composable

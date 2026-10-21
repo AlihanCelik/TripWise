@@ -1,4 +1,4 @@
-package com.alihan.tripwise.presentation.home.alldestinations
+package com.alihan.tripwise.presentation.alldestinations
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

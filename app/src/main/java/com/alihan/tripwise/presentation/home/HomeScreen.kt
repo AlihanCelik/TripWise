@@ -21,7 +21,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -41,7 +40,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alihan.tripwise.R
-import com.alihan.tripwise.presentation.home.alldestinations.components.SmallProfile
+import com.alihan.tripwise.presentation.components.SmallProfile
+import com.alihan.tripwise.presentation.home.components.HomeMapCard
+import com.alihan.tripwise.presentation.home.components.NewDestinationCard
+import com.alihan.tripwise.presentation.home.components.ProfileHomeCard
 import com.alihan.tripwise.presentation.navigation.AppScreen
 import com.alihan.tripwise.presentation.ui.component.BestDestinationCard
 import com.alihan.tripwise.ui.theme.Blue
@@ -60,34 +62,18 @@ fun HomeScreen(
         topBar = {
             CenterAlignedTopAppBar(
                 actions = {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = Icons.Default.LocationOn,
-                            contentDescription = "Location",
-                            tint = MaterialTheme.colorScheme.onBackground,
-                            modifier = Modifier.size(15.dp)
-                        )
-                        Text(
-                            text = "Kırıkkale/Merkez",
-                            color = MaterialTheme.colorScheme.onBackground,
-                            style = MaterialTheme.typography.headlineSmall,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 15.sp,
-                            modifier = Modifier.padding(start = 4.dp)
-                        )
-                    }
+                    HomeMapCard()
                 },
-                title = {
-
-                },
+                title = {},
                 navigationIcon = {
-                    SmallProfile()
+                    ProfileHomeCard()
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
                     navigationIconContentColor = MaterialTheme.colorScheme.onBackground,
                     titleContentColor = MaterialTheme.colorScheme.onBackground
-                )
+                ),
+                modifier = Modifier.padding(horizontal = 3.dp)
             )
         }
     ) { innerPadding ->
@@ -99,8 +85,7 @@ fun HomeScreen(
             Spacer(modifier = Modifier.padding(vertical = 10.dp))
             Text(
                 text = "Explore the",
-                fontSize = 18.sp,
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.headlineLarge,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
                 modifier = Modifier
                     .padding(horizontal = 15.dp, vertical = 8.dp)
@@ -115,70 +100,42 @@ fun HomeScreen(
             ) {
                 Text(
                     text = "Beautiful",
-                    fontSize = 25.sp,
-                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.headlineLarge,
                     modifier = Modifier.padding(end = 4.dp),
                     textAlign = TextAlign.Center
                 )
                 Text(
                     text = "world!",
-                    fontSize = 25.sp,
+                    fontWeight = FontWeight.Bold,
                     color = Blue,
-                    style = MaterialTheme.typography.headlineSmall,
+                    style = MaterialTheme.typography.headlineLarge,
                     textAlign = TextAlign.Center
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-                    .clickable { },
-                shape = RoundedCornerShape(15.dp),
-                colors = CardDefaults.cardColors(containerColor = backgroundColor),
-                elevation = CardDefaults.cardElevation(6.dp)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.create),
-                        contentDescription = "Create",
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(30.dp)
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = "New Destination",
-                        fontSize = 12.sp,
-                        style = MaterialTheme.typography.headlineSmall,
-                        color = MaterialTheme.colorScheme.onBackground,
-                        textAlign = TextAlign.Center
-                    )
-                }
-            }
+            NewDestinationCard {}
             Spacer(modifier = Modifier.height(10.dp))
             Row(
                 modifier = Modifier
-                    .padding(horizontal = 15.dp, vertical = 5.dp)
+                    .padding(horizontal = 15.dp)
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
                     text = "Best Destination",
-                    fontSize = 15.sp,
-                    style = MaterialTheme.typography.headlineSmall,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Start
                 )
                 TextButton(onClick = { navController.navigate(AppScreen.AllDestinations.route) }) {
                     Text(
                         text = "View all",
-                        fontSize = 12.sp,
-                        style = MaterialTheme.typography.headlineSmall,
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = Blue,
                         textAlign = TextAlign.End
                     )
                 }
