@@ -82,20 +82,19 @@ fun HomeScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            Spacer(modifier = Modifier.padding(vertical = 10.dp))
             Text(
                 text = "Explore the",
                 style = MaterialTheme.typography.headlineLarge,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
                 modifier = Modifier
-                    .padding(horizontal = 15.dp, vertical = 8.dp)
+                    .padding(horizontal = 15.dp, vertical = 5.dp)
                     .align(Alignment.Start),
                 textAlign = TextAlign.Center
             )
 
             Row(
                 modifier = Modifier
-                    .padding(horizontal = 15.dp, vertical = 8.dp)
+                    .padding(horizontal = 15.dp,)
                     .align(Alignment.Start)
             ) {
                 Text(
